@@ -18,6 +18,21 @@ public class LocationList
         this.SecondList.Sort();
     }
 
+    public int Similarity(){
+        var score = 0;
+        for (int i = 0; i < this.FirstList.Count(); i++){
+            score += SimilarityForItem(i);
+        }
+        return score;
+    }
+
+    private int SimilarityForItem(int index)
+    {
+        var item = this.FirstList[index];
+        var itemCount = this.SecondList.Where(x => x == item).Count();
+        return item * itemCount;
+    }
+
     public int TotalDistance()
     {
         var sum = 0;

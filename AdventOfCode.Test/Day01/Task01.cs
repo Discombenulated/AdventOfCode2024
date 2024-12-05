@@ -2,7 +2,7 @@ using AdventOfCode.Day01;
 
 namespace AdventOfCode.Test.Day01;
 
-public partial class Task01
+public class Task01
 {
     [SetUp]
     public void Setup()

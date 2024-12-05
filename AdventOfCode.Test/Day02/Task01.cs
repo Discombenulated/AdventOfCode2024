@@ -1,4 +1,6 @@
 
+using AdventOfCode.Day02;
+
 namespace AdventOfCode.Test.Day02;
 
 public class Task01
@@ -44,59 +46,5 @@ public class Task01
     {
         var input = new FileInput("Day02/MyInput.txt").ReadLines();
         Assert.That(new ReportList(input).CountSafeReports(), Is.EqualTo(287));
-    }
-}
-
-public class ReportList
-{
-    private List<Report> reports;
-
-    public ReportList(string[] input)
-    {
-        this.reports = new List<Report>();
-        foreach (string reportText in input){
-            this.reports.Add(new Report(reportText));
-        }
-    }
-
-    public int CountSafeReports()
-    {
-        return this.reports.Where(r => r.IsSafe()).Count();
-    }
-}
-
-public class Report
-{
-    private List<int> levels;
-    private string reportText;
-
-    public Report(string reportText)
-    {
-        this.reportText = reportText;
-        this.levels = reportText.Split(' ').Select(s => int.Parse(s)).ToList();
-    }
-
-    public bool IsSafe()
-    {
-        var isIncreasing = this.levels[1] - this.levels[0] > 0;
-        for (int i = 1; i < this.levels.Count; i++){
-            var difference = this.levels[i] - this.levels[i-1];
-            var isStillIncreasing = difference > 0;
-            if (isIncreasing != isStillIncreasing){
-                return false;
-            }
-            var absoluteDifference = Math.Abs(difference);
-            if (absoluteDifference > 3){
-                return false;
-            }
-            if (absoluteDifference < 1){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public override string ToString(){
-        return reportText;
     }
 }
